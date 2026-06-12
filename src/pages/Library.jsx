@@ -7,6 +7,11 @@ const FEEDBACK_SECTIONS = [
   { key: "loved", label: "👍 Loved it", color: "var(--teal)" },
   { key: "want_to_try", label: "🔖 Want to try", color: "var(--amber)" },
   { key: "seen", label: "✅ Seen it", color: "var(--text-muted)" },
+  {
+    key: "seen_meh",
+    label: "😐 Watched — indifferent",
+    color: "var(--text-muted)",
+  },
   { key: "disliked", label: "👎 Didn't like it", color: "var(--text-muted)" },
   {
     key: "not_interested",
@@ -15,7 +20,7 @@ const FEEDBACK_SECTIONS = [
   },
 ];
 
-export default function Library() {
+export default function Library({ setPage }) {
   const [items, setItems] = useState([]);
   const [category, setCategory] = useState("all");
   const [loading, setLoading] = useState(true);
@@ -65,6 +70,18 @@ export default function Library() {
   return (
     <div className="app-shell">
       <h2 style={{ marginBottom: 6 }}>My Library</h2>
+      <button
+        className="btn-primary"
+        style={{
+          width: "auto",
+          padding: "8px 16px",
+          marginBottom: 0,
+          fontSize: 13,
+        }}
+        onClick={() => setPage("quickrate")}
+      >
+        ⚡ Quick Rate
+      </button>
       <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 24 }}>
         Everything you've rated, all in one place.
       </p>
