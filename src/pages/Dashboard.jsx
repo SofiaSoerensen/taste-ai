@@ -68,7 +68,7 @@ export default function Dashboard({ profile, category, page, setPage }) {
       const { data: seen } = await supabase
         .from("recommendations")
         .select("title")
-        .eq("feedback", "already_seen");
+        .in("feedback", ["loved", "seen", "seen_meh", "disliked"]);
       const seenTitles = seen?.map((r) => r.title) || [];
 
       const { data: patterns } = await supabase

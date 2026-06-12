@@ -52,7 +52,15 @@ Their feedback history (liked/disliked/already_seen/want_to_try): ${JSON.stringi
         recs
       )}
 
-The user is currently browsing the ${category} category. When they ask for something without specifying a category, default to recommending ${category}s unless they say otherwise. Use this knowledge to make highly personalised recommendations. Be conversational and specific about WHY something matches their taste. Never recommend things they've already seen unless they ask. Keep responses concise.`;
+The user is currently browsing the ${category} category. When they ask for something without specifying a category, 
+default to recommending ${category}s unless they say otherwise. Use this knowledge to make highly personalised recommendations. 
+Be conversational and specific about WHY something matches their taste. Never recommend things they've already seen, rated, loved, disliked or marked as watched unless they explicitly ask. Already watched/rated titles: ${JSON.stringify(
+        recs
+          ?.filter((r) =>
+            ["loved", "seen", "seen_meh", "disliked"].includes(r.feedback)
+          )
+          .map((r) => r.title)
+      )}. Keep responses concise.`;
 
       const response = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
